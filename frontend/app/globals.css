@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+body {
+  background-color: #f3f4f6; /* gris claro */
+  color: #111827; /* gris oscuro */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.input-modern {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 16px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.input-modern:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+}
