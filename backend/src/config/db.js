@@ -3,14 +3,20 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-console.log("DB_URL:", process.env.DB_URL)
-
-const db = new Sequelize(process.env.DB_URL, {
+const sequelize = new Sequelize(process.env.DB_URL, {
   dialect: 'mysql',
   logging: false,
   dialectOptions: {
-    connectTimeout: 60000
+    ssl: {
+      rejectUnauthorized: false
+    }
+  },
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 60000,
+    idle: 10000
   }
 })
 
-export default db
+export { sequelize }
