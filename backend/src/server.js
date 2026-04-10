@@ -9,25 +9,28 @@ const PORT = process.env.PORT || 4000
 const startServer = async () => {
   try {
 
-    // 🔍 1. VER VARIABLES IMPORTANTES
+    // 🔍 ENV CHECK REAL
     console.log("===== ENV CHECK =====")
     console.log("PORT:", process.env.PORT)
-    console.log("DB HOST URL:", process.env.MYSQL_URL || process.env.DB_HOST)
+    console.log("DB_URL:", process.env.DB_URL)
     console.log("=====================")
 
-    // 🔍 2. VERIFICAR SEQUELIZE OBJETO
+    if (!process.env.DB_URL) {
+      throw new Error("DB_URL no está definida en variables de entorno")
+    }
+
     console.log("Intentando conectar a la base de datos...")
 
-    // 🔥 3. TEST CONEXIÓN
+    // 🔥 CONEXIÓN DB
     await sequelize.authenticate()
     console.log('✅ Conectado a la base de datos correctamente')
 
-    // 🔍 4. SINCRONIZACIÓN
+    // 🔥 SINCRONIZACIÓN
     console.log("Sincronizando modelos...")
     await sequelize.sync({ alter: true })
     console.log('✅ Modelos sincronizados')
 
-    // 🔍 5. INICIO DEL SERVIDOR
+    // 🔥 SERVIDOR
     app.listen(PORT, () => {
       console.log('=====================')
       console.log(`🚀 Servidor corriendo en puerto ${PORT}`)
@@ -36,7 +39,6 @@ const startServer = async () => {
 
   } catch (error) {
 
-    // ❌ ERROR COMPLETO
     console.log("===== ERROR START SERVER =====")
     console.error("Mensaje:", error.message)
     console.error("Código:", error.code)
