@@ -1,13 +1,15 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-const db = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
+dotenv.config();
+
+// USAR URL COMPLETA DE RAILWAY (IMPORTANTE)
+const db = new Sequelize(process.env.MYSQL_URL, {
+  dialect: "mysql",
   logging: false,
   dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
+    connectTimeout: 60000
   }
-})
-export default db
+});
+
+export default db;
