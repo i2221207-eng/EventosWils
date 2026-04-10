@@ -1,23 +1,16 @@
-import { Sequelize } from "sequelize";
-import dotenv from "dotenv";
+import { Sequelize } from 'sequelize'
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
+
+console.log("DB_URL:", process.env.DB_URL)
 
 const db = new Sequelize(process.env.DB_URL, {
-  dialect: "mysql",
+  dialect: 'mysql',
   logging: false,
-
-  // 🔥 ESTO EVITA CONNECTION LOST
   dialectOptions: {
-    connectTimeout: 60000,
-  },
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 60000,
-    idle: 10000
+    connectTimeout: 60000
   }
-});
+})
 
-export default db;
+export default db
