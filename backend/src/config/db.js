@@ -1,19 +1,23 @@
 import { Sequelize } from 'sequelize'
 
-const db = new Sequelize(process.env.MYSQL_URL, {
+const db = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'mysql',
   logging: false,
   dialectOptions: {
+    connectTimeout: 60000,
     ssl: {
       require: true,
       rejectUnauthorized: false
     }
   },
   pool: {
-    max: 5,
+    max: 3,
     min: 0,
-    acquire: 30000,
+    acquire: 60000,
     idle: 10000
+  },
+  retry: {
+    max: 5
   }
 })
 
