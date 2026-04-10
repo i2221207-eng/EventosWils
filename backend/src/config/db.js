@@ -1,23 +1,22 @@
 import { Sequelize } from 'sequelize'
+import dotenv from 'dotenv'
 
-const db = new Sequelize(process.env.MYSQL_URL, {
-  dialect: 'mysql',
+dotenv.config()
+
+const db = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
   logging: false,
   dialectOptions: {
-    connectTimeout: 60000,
     ssl: {
       require: true,
       rejectUnauthorized: false
     }
   },
   pool: {
-    max: 3,
+    max: 5,
     min: 0,
-    acquire: 60000,
+    acquire: 30000,
     idle: 10000
-  },
-  retry: {
-    max: 5
   }
 })
 
