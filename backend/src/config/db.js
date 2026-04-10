@@ -10,13 +10,7 @@ const sequelize = new Sequelize(process.env.DB_URL, {
     ssl: {
       rejectUnauthorized: false
     }
-  },
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 60000,
-    idle: 10000
   }
 })
 
-export { sequelize }
+export default sequelize
